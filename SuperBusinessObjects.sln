@@ -1,7 +1,32 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SuperBusinessObjects", "SuperBusinessObjects\SuperBusinessObjects.vbproj", "{7EA2AEF6-8308-4F6F-8069-29F046B7C5AF}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SuperBusinessObjects.Sql", "SuperBusinessObjects.Sql\SuperBusinessObjects.Sql.vbproj", "{170557F4-83D0-4548-956B-7D7EAEE7565C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{77C7EF8F-C5F0-4553-BA4E-D2B3520E89F6}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7EA2AEF6-8308-4F6F-8069-29F046B7C5AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EA2AEF6-8308-4F6F-8069-29F046B7C5AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EA2AEF6-8308-4F6F-8069-29F046B7C5AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EA2AEF6-8308-4F6F-8069-29F046B7C5AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{170557F4-83D0-4548-956B-7D7EAEE7565C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{170557F4-83D0-4548-956B-7D7EAEE7565C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{170557F4-83D0-4548-956B-7D7EAEE7565C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{170557F4-83D0-4548-956B-7D7EAEE7565C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
