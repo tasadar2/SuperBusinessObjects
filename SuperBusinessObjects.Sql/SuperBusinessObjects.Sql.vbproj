@@ -11,6 +11,8 @@
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +45,10 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Rock.QL.Mobius.SuperBusinessObjects, Version=1.0.0.27944, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Rock.QL.Mobius.SuperBusinessObjects.1.0.0.27944\lib\net45\Rock.QL.Mobius.SuperBusinessObjects.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -74,14 +80,24 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SuperBusinessObjects\SuperBusinessObjects.vbproj">
-      <Project>{7ea2aef6-8308-4f6f-8069-29f046b7c5af}</Project>
-      <Name>SuperBusinessObjects</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>if $(ConfigurationName) == Release (
+  mkdir "$(SolutionDir)NuGet"
+  
+  echo ==== Removing Old Packages ====
+  del "$(SolutionDir)NuGet\*.nupkg"
+  
+  echo ==== Creating Package ====
+  "$(SolutionDir).nuget\nuget.exe" pack "$(ProjectPath)" -OutputDir "$(SolutionDir)NuGet" -Prop Configuration=Release -IncludeReferencedProjects
+  
+  echo ==== Publishing package ====
+  "$(SolutionDir).nuget\nuget.exe" push "$(SolutionDir)NuGet\*.nupkg" -source "\\mi\dfs\Shared\IS ALL\Mobius\Software Engineering"
+)</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

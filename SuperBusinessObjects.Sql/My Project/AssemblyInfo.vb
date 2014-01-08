@@ -10,10 +10,10 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("SuperBusinessObjects.Sql")> 
 <Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("")> 
+<Assembly: AssemblyCompany("Quicken Loans")> 
 <Assembly: AssemblyProduct("SuperBusinessObjects.Sql")> 
-<Assembly: AssemblyCopyright("Copyright ©  2013")> 
-<Assembly: AssemblyTrademark("")> 
+<Assembly: AssemblyCopyright("Quicken Loans © 2013")> 
+<Assembly: AssemblyTrademark("Joshua Cherry")> 
 
 <Assembly: ComVisible(False)>
 

@@ -80,6 +80,8 @@ publish
 *.Publish.xml
 
 # Others
+*.nupkg
+packages/
 [Bb]in
 [Oo]bj
 sql
