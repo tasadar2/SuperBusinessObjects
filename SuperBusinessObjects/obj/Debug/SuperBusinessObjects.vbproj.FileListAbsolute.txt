@@ -1,6 +1,0 @@
-C:\Projects\Local\AppPusher\SuperBusinessObjects\bin\Debug\Rock.QL.Mobius.SuperBusinessObjects.dll
-C:\Projects\Local\AppPusher\SuperBusinessObjects\bin\Debug\Rock.QL.Mobius.SuperBusinessObjects.pdb
-C:\Projects\Local\AppPusher\SuperBusinessObjects\bin\Debug\Rock.QL.Mobius.SuperBusinessObjects.xml
-C:\Projects\Local\AppPusher\SuperBusinessObjects\obj\Debug\Rock.QL.Mobius.SuperBusinessObjects.dll
-C:\Projects\Local\AppPusher\SuperBusinessObjects\obj\Debug\Rock.QL.Mobius.SuperBusinessObjects.xml
-C:\Projects\Local\AppPusher\SuperBusinessObjects\obj\Debug\Rock.QL.Mobius.SuperBusinessObjects.pdb
