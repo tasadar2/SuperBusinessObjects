@@ -45,9 +45,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Rock.QL.Mobius.SuperBusinessObjects, Version=1.0.0.27944, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Rock.QL.Mobius.SuperBusinessObjects, Version=1.0.1.27430, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Rock.QL.Mobius.SuperBusinessObjects.1.0.0.27944\lib\net45\Rock.QL.Mobius.SuperBusinessObjects.dll</HintPath>
+      <HintPath>..\packages\Rock.QL.Mobius.SuperBusinessObjects.1.0.1.27430\lib\net45\Rock.QL.Mobius.SuperBusinessObjects.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

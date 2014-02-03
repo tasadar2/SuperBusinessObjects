@@ -31,6 +31,7 @@
         Public Property IsPrimaryName As Boolean
         Public Property IsRequired As Boolean
         Public Property IsDisplayable As Boolean
+        Public Property IsReadOnly As Boolean
         Public Property IsComputed As Boolean
         Public Property Info As sboClass
         Public Property ParentProperty As sboNavigationProperty
@@ -52,7 +53,7 @@
             Me.IsPrimaryName = PrimaryName
             Me.IsRequired = Required
             Me.IsDisplayable = Displayable
-            Me.IsComputed = Computed
+            Me.IsReadOnly = Computed
             If DisplayProperty IsNot Nothing Then
                 Me.DisplayProperty = DisplayProperty
             End If
@@ -97,6 +98,18 @@
 
         Public Shared Function Create(NavigationProperty1 As sboNavigationProperty, NavigationProperty2 As sboNavigationProperty, Prop As sboProperty) As sboProperty
             Return Create({NavigationProperty1, NavigationProperty2, Prop})
+        End Function
+
+        Public Function GetFullPropertyPath()
+            Return GetFullPropertyPath(Me)
+        End Function
+
+        Public Shared Function GetFullPropertyPath(Prop As sboProperty) As String
+            Dim Result As String = Prop.PropertyName
+            If Prop.ParentProperty IsNot Nothing Then
+                Result = GetFullPropertyPath(Prop.ParentProperty) & "." & Result
+            End If
+            Return Result
         End Function
 
         Public Shared Function Create(ParamArray Props() As sboProperty) As sboProperty

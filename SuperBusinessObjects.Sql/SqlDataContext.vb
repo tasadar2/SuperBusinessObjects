@@ -101,7 +101,7 @@ Public Class SqlDataContext
     End Sub
 
     Private Sub FillEntity([Alias] As String, Info As sboClass, ChildProperties As IEnumerable(Of sboProperty), Row As DataRow, Entity As sboEntity)
-        For Each Prop In Info.DirectProperties
+        For Each Prop In Info.DirectProperties.Where(Function(P) P.IsComputed = False)
             Dim Value As Object = Nothing
             Dim ColumnName As String = FilterName([Alias] & Prop.PropertyName)
             If Row.Table.Columns.Contains(ColumnName) Then
@@ -164,10 +164,11 @@ Public Class SqlDataContext
 
         Select Case Entity.SaveState
             Case sboEntity.sboSaveState.Create
-                Dim Columns As New List(Of String)(Entity.Info.DirectProperties.Count)
-                Dim Values As New List(Of String)(Entity.Info.DirectProperties.Count)
+                Dim Properties = Entity.Info.DirectProperties.Where(Function(P) P.IsReadOnly = False And P.IsComputed = False).ToList
+                Dim Columns As New List(Of String)(Properties.Count)
+                Dim Values As New List(Of String)(Properties.Count)
 
-                For Each Prop In Entity.Info.DirectProperties.Where(Function(P) P.IsComputed = False)
+                For Each Prop In Properties
                     Dim Param = CreateParameter("@" & Prop.FieldName & GetUniqueNumber(), Entity.Item(Prop))
                     Columns.Add("[" & Prop.FieldName & "]")
                     Values.Add(Param.ParameterName)
@@ -177,9 +178,10 @@ Public Class SqlDataContext
                 Command.CommandText = "insert into [" & Entity.Info.TableName & "] (" & Join(Columns.ToArray, ", ") & ") output inserted.[" & Entity.Info.PrimaryProperty.FieldName & "] values (" & Join(Values.ToArray, ", ") & ")"
 
             Case sboEntity.sboSaveState.Update
-                Dim Sets As New List(Of String)(Entity.Info.DirectProperties.Count)
+                Dim Properties = Entity.Info.DirectProperties.Where(Function(P) P.IsReadOnly = False And P.IsComputed = False And P.IsPrimary = False).ToList
+                Dim Sets As New List(Of String)(Properties.Count)
 
-                For Each Prop In Entity.Info.DirectProperties.Where(Function(P) P.IsPrimary = False)
+                For Each Prop In Properties
                     If Entity.Item(Prop).Equals(Entity.OriginalItem(Prop)) = False Then
                         Dim Param = CreateParameter("@" & Prop.FieldName & GetUniqueNumber(), Entity.Item(Prop))
                         Sets.Add("[" & Prop.FieldName & "] = " & Param.ParameterName)
@@ -240,7 +242,7 @@ Public Class SqlDataContext
 
     Private Sub GetRelations([Alias] As String, Info As sboClass, Relationship As sboRelationshipDefinition, ChildProperties As IEnumerable(Of sboProperty), JoiningAlias As String, ByRef Columns As IEnumerable(Of String), ByRef Relationships As IEnumerable(Of String))
         Dim FormattedAlias As String = FormatAliasName([Alias])
-        Columns = Columns.Concat(Info.DirectProperties.Select(Function(P) FormattedAlias & ".[" & P.FieldName & "] as " & FormatAliasName([Alias] & P.PropertyName)))
+        Columns = Columns.Concat(Info.DirectProperties.Where(Function(P) P.IsComputed = False).Select(Function(P) FormattedAlias & ".[" & P.FieldName & "] as " & FormatAliasName([Alias] & P.PropertyName)))
         If Relationship IsNot Nothing Then
             Relationships = Relationships.Concat({"left join " & FormatTableName(Info.TableName) & " as " & FormattedAlias & " on " & FormattedAlias & ".[" & Relationship.ParentProperty.FieldName & "] = " & FormatAliasName(JoiningAlias) & ".[" & Relationship.ChildProperty.FieldName & "]"})
         End If
